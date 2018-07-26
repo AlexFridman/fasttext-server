@@ -1,7 +1,7 @@
 class Config(object):
-    DEBUG = False
+    DEBUG = True
     TESTING = False
-    HOST = 'localhost'
+    HOST = '0.0.0.0'
     PORT = 8000
 
 

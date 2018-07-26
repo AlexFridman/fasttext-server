@@ -7,6 +7,5 @@ setup(name='fasttext-server',
       author_email='daniel@federschmidt.xyz',
       url='https://federschmidt.xyz',
       packages=['ft_server', 'test'],
-      install_requires=["click", "flask"],
-      data_files=[("config.py", ["config.py"])]
+      install_requires=["click", "flask"]
       )

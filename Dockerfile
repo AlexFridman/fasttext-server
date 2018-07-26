@@ -7,5 +7,6 @@ WORKDIR /app
 
 RUN pip install pipenv
 RUN pipenv install --system
+RUN pip install .
 
-CMD ["python", "app.py"]
+ENTRYPOINT ["python", "ft_server/__main__.py"]
