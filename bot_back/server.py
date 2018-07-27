@@ -1,5 +1,4 @@
 import json
-from collections import namedtuple
 
 from flask import Flask
 from flask import g
@@ -15,21 +14,29 @@ app = Flask(__name__)
 
 @app.before_request
 def before_request():
-    g.intent_classification_model_registry, g.intent_conf = load_models(app.config['models_path'])
+    g.intent_classification_model_registry = load_models(app.config['models_path'])
 
 
-class Request(namedtuple('Request', ['lang', 'query', 'top_n', 'sessionId'])):
+class Request:
+    fields = ['lang', 'query', 'top_n', 'sessionId']
+
+    def __init__(self, lang, query, top_n, sessionId):
+        self.lang = lang
+        self.query = query
+        self.top_n = top_n
+        self.sessionId = sessionId
+
     @classmethod
     def validate_request(cls, request):
         missing_fields = []
-        for field in cls.__slots__:
+        for field in cls.fields:
             if field not in request:
                 missing_fields.append(field)
 
         if missing_fields:
             raise BadRequest('Invalid request. Some fields ({}) are missing'.format(', '.join(missing_fields)))
 
-        return cls(**{field: request[field] for field in cls.__slots__})
+        return cls(**{field: request[field] for field in cls.fields})
 
 
 @app.route('/', methods=['POST'])
@@ -43,7 +50,7 @@ def index():
         raise LangIsNotSupported()
 
     try:
-        intent_classification_result = intent_classification_model.predict(req.query.req.top_n)
+        intent_classification_result = intent_classification_model.predict(req.query, req.top_n)
     except Exception:
         raise IntentClassificationError()
 
@@ -55,7 +62,7 @@ def index():
                    .build())
 
 
-@app.errorhandler(Exception)
+# @app.errorhandler(Exception)
 def handle_error(error):
     try:
         req = json.loads(request.data)

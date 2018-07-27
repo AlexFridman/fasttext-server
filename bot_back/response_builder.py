@@ -49,7 +49,7 @@ class ResponseBuilder:
             response['parameters'] = self._ner_result.to_dict()
 
         if self._intent_classification_result:
-            response['metadata'] = self._intent_classification_result
+            response['metadata'] = self._intent_classification_result.to_dict()
             response['source'] = self._intent_classification_result.model_version
 
         return response
