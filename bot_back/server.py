@@ -62,7 +62,7 @@ def index():
                    .build())
 
 
-# @app.errorhandler(Exception)
+@app.errorhandler(Exception)
 def handle_error(error):
     try:
         req = json.loads(request.data)
