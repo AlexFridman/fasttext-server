@@ -51,7 +51,8 @@ def index():
                    .set_request(raw_request)
                    .set_message('success')
                    .set_status_code(200)
-                   .set_intent_classification_result(intent_classification_result))
+                   .set_intent_classification_result(intent_classification_result)
+                   .build())
 
 
 @app.errorhandler(Exception)
@@ -67,4 +68,5 @@ def handle_error(error):
     return jsonify(ResponseBuilder()
                    .set_request(req)
                    .set_message(message)
-                   .set_status_code(status_code)), status_code
+                   .set_status_code(status_code)
+                   .build()), status_code
