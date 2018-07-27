@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+import argparse
+
+try:
+    from bot_back.server import app
+except ImportError:
+    # Add parent directory to Python path and retry
+    import os
+    import sys
+
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    parent_dir = os.path.dirname(script_dir)
+    sys.path.append(parent_dir)
+    from bot_back.server import app
+
+
+def parse_args():
+    parser = argparse.ArgumentParser('bot-back')
+
+    parser.add_argument('models_path')
+    parser.add_argument('--host', default='0.0.0.0')
+    parser.add_argument('--port', type=int, default=8000)
+    parser.add_argument('--debug', action='store_true', default=False)
+
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    app.config['models_path'] = args.models_path
+    app.run(host=args.host, port=args.port, debug=args.debug)
+
+
+if __name__ == '__main__':
+    main()
