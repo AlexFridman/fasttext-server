@@ -6,7 +6,7 @@ from itertools import chain
 import fastText
 import os
 
-from bot_back.intent_classifier import FastTextIntentClassifier
+from sberbot_nlu_back.intent_classifier import FastTextIntentClassifier
 
 logger = logging.getLogger()
 

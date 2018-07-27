@@ -5,9 +5,9 @@ from flask import g
 from flask import jsonify
 from flask import request
 
-from bot_back.exceptions import BadRequest, IntentClassificationError, LangIsNotSupported
-from bot_back.response_builder import ResponseBuilder
-from bot_back.utils import load_models
+from sberbot_nlu_back.exceptions import BadRequest, IntentClassificationError, LangIsNotSupported
+from sberbot_nlu_back.response_builder import ResponseBuilder
+from sberbot_nlu_back.utils import load_models
 
 app = Flask(__name__)
 

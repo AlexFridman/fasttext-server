@@ -1,6 +1,6 @@
 from python:3
 
-MAINTAINER daniel@federschmidt.xyz
+MAINTAINER alexfridman@outlook.com
 
 # to speedup building
 COPY requirements.txt /app/requirements.txt
@@ -11,4 +11,4 @@ RUN pip install -U -r requirements.txt
 COPY . /app
 WORKDIR /app
 
-ENTRYPOINT ["python", "bin/bot-back"]
+ENTRYPOINT ["python", "bin/sberbot-nlu-back"]
